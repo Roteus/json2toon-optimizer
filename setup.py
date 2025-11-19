@@ -25,8 +25,11 @@ setup(
     install_requires=[],
     extras_require={
         "full": ["tiktoken>=0.7.0"],
+        "stream": ["ijson>=3.2.0"],
+        "all": ["tiktoken>=0.7.0", "ijson>=3.2.0"],
         "dev": [
             "tiktoken>=0.7.0",
+            "ijson>=3.2.0",
             "pytest>=7.0.0",
             "pytest-cov>=4.0.0",
             "black>=23.0.0",

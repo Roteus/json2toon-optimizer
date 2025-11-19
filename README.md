@@ -1,6 +1,6 @@
 # 🚀 json2toon-optimizer
 
-A complete JSON ↔ TOON optimizer and converter with token consumption estimation and automatic selection of the most efficient format.
+A powerful JSON ↔ TOON optimizer with intelligent format selection, batch processing, and streaming support for large files. Automatically selects the most token-efficient format for LLM applications.
 
 ## 📁 Project Structure
 
@@ -45,42 +45,74 @@ json2toon-optimizer/
 ### Installation
 
 ```bash
-# Install from PyPI (recommended)
+# Basic installation
 pip install json2toon-optimizer
+
+# With streaming support (for large files)
+pip install json2toon-optimizer[streaming]
+
+# With accurate token counting
+pip install json2toon-optimizer[tokens]
+
+# Full installation (all features)
+pip install json2toon-optimizer[all]
 
 # Or install from source
 git clone https://github.com/Roteus/json2toon-optimizer
 cd json2toon-optimizer
-pip install -e .
+pip install -e .[all]
 ```
 
 ### Basic Usage
 
 ```bash
-# Process a JSON file
-json2toon examples/simple/simple_numbers.json
+# Single file conversion
+json2toon data.json
 
-# Specify output directory
-json2toon data.json -o ./output
+# With output directory
+json2toon data.json --output ./results
+
+# Show statistics
+json2toon data.json --stats
 
 # View help
 json2toon --help
 ```
 
-### Examples
+### Batch Processing
 
 ```bash
-# Simple example
-json2toon examples/simple/simple_numbers.json
+# Process multiple files
+json2toon examples/*.json --batch
 
-# Intermediate example
-json2toon examples/intermediate/sample_data.json
+# Recursive directory processing
+json2toon examples/ --recursive --batch
 
-# Complex example
-json2toon examples/complex/employees.json
+# Parallel processing (4 workers)
+json2toon data/*.json --batch --parallel 4 --stats
+```
 
-# Special example (JSON wins!)
-json2toon examples/complex/deeply_nested.json
+### Streaming (Large Files)
+
+```bash
+# Stream large files (minimal memory)
+json2toon large_dataset.json --stream
+
+# Custom chunk size
+json2toon huge_file.json --stream --chunk-size 10000
+```
+
+### Advanced Options
+
+```bash
+# Custom format options
+json2toon data.json --delimiter tab --indent 4
+
+# Force specific format
+json2toon data.json --format toon --force
+
+# Exclude patterns in batch mode
+json2toon data/ --batch --exclude "test_*" --exclude "*_backup.json"
 ```
 
 ---
@@ -94,6 +126,13 @@ json2toon examples/complex/deeply_nested.json
 - Tabular arrays (max compression: up to 66%)
 - Mixed arrays (list format)
 - Smart string quoting
+
+### ✅ Batch Processing & Streaming
+
+- **Batch Mode**: Process multiple files with glob patterns and parallel workers
+- **Streaming Mode**: Handle files >500MB with constant memory usage
+- **Recursive Processing**: Scan directories recursively with exclude patterns
+- **Aggregated Statistics**: Token savings and performance metrics across batches
 
 ### ✅ Token Estimation
 
@@ -128,6 +167,91 @@ When JSON is selected:
 - ✅ Single line
 - ✅ Maximum compactness
 - ✅ Minified with `separators=(',', ':')`
+
+---
+
+## 🎯 Advanced Features
+
+### Enhanced CLI Arguments
+
+**Format Options:**
+
+- `--format {auto,json,toon}` - Choose output format (auto selects optimal)
+- `--force` - Override auto-selection and force chosen format
+- `--delimiter {comma,tab,pipe,semicolon}` - Custom TOON delimiter
+- `--indent N` - JSON indentation level (default: 2)
+
+**Batch Processing:**
+
+- `--batch` - Process multiple files matching glob patterns
+- `--recursive` - Include subdirectories in batch processing
+- `--parallel N` - Number of parallel workers (default: 4)
+- `--exclude PATTERN` - Exclude files matching pattern (repeatable)
+
+**Streaming (Large Files):**
+
+- `--stream` - Enable streaming mode for large files (>500MB)
+- `--chunk-size N` - Items per chunk (default: 1000)
+- `--memory-limit MB` - Maximum memory usage (default: 512MB)
+
+**Analysis:**
+
+- `--stats` - Show detailed processing statistics
+- `--show-token-counts` - Display token counts for comparison
+- `--dry-run` - Analyze without writing output files
+
+### Batch Processing Examples
+
+Process multiple files efficiently with parallel workers:
+
+```python
+from json2toon import process_batch
+
+results = process_batch(
+    input_pattern="data/*.json",
+    output_dir="./results",
+    workers=4,
+    recursive=True,
+    exclude_patterns=["*_test.json"]
+)
+
+print(f"Processed {results['total_files']} files")
+print(f"Total savings: {results['total_token_savings']} tokens")
+```
+
+**Features:**
+
+- 🚀 Parallel processing with configurable workers
+- 📁 Glob pattern matching and recursive directory scanning
+- 🎯 Exclude patterns for filtering unwanted files
+- 📊 Aggregated statistics across all processed files
+- ⚡ Automatic optimal format selection per file
+
+### Streaming for Large Files
+
+Handle files larger than available memory:
+
+```python
+from json2toon import process_stream
+
+stats = process_stream(
+    input_file="huge_dataset.json",
+    output_file="huge_dataset.toon",
+    chunk_size=5000,
+    memory_limit_mb=512
+)
+
+print(f"Peak memory: {stats['peak_memory_mb']:.2f} MB")
+print(f"Processed {stats['chunks_processed']} chunks")
+```
+
+**Features:**
+
+- 💾 Constant memory usage regardless of file size
+- 📈 Real-time memory monitoring with tracemalloc
+- 🔄 Incremental JSON array parsing with ijson
+- ⚙️ Configurable chunk sizes for optimal performance
+- 🛡️ Automatic memory limit enforcement
 
 ---
 
@@ -440,10 +564,14 @@ python src/toon_converter.py examples/complex/deeply_nested.json
 ## ✅ Feature Checklist
 
 - ✅ JSON → TOON Conversion (100% of rules)
-- ✅ Accurate token counting
+- ✅ Accurate token counting (tiktoken support)
 - ✅ Automatic format selection
 - ✅ Minified JSON (single line)
 - ✅ Formatted TOON (readable)
+- ✅ Batch processing with parallel workers
+- ✅ Streaming support for large files (>500MB)
+- ✅ Enhanced CLI with 30+ arguments
+- ✅ Comprehensive test suite (50+ tests)
 - ✅ Support for all structures
 - ✅ Examples and tests
 - ✅ Complete documentation
@@ -463,10 +591,13 @@ python src/toon_converter.py examples/complex/deeply_nested.json
 
 ## 📝 Notes
 
-- **Version:** 1.1
-- **Python:** 3.7+
-- **Dependencies:** None (stdlib only)
-- **Date:** November 2025
+- **Version:** 2.0.0
+- **Python:** 3.8+
+- **Core Dependencies:** None (stdlib only)
+- **Optional Dependencies:**
+  - `tiktoken>=0.7.0` for accurate token counting
+  - `ijson>=3.2.0` for streaming large files
+- **Date:** January 2025
 - **Status:** ✅ Complete and tested
 
 ---
@@ -474,14 +605,42 @@ python src/toon_converter.py examples/complex/deeply_nested.json
 ## 🎉 Get Started Now
 
 ```bash
-# 1. Install
-pip install json2toon-optimizer
+# 1. Install with all features
+pip install json2toon-optimizer[all]
 
-# 2. Run an example
-json2toon examples/simple/simple_numbers.json
+# 2. Convert a single file
+json2toon examples/simple/simple_numbers.json --stats
 
-# 3. View help
+# 3. Batch process multiple files
+json2toon examples/*.json --batch --parallel 4
+
+# 4. Stream a large file
+json2toon large_dataset.json --stream
+
+# 5. View help
 json2toon --help
+```
+
+### 📚 Example Scripts
+
+Check out the `examples/` directory for detailed usage examples:
+
+- **`batch_processing_example.py`** - Sequential and parallel batch processing workflows
+- **`streaming_example.py`** - Large file handling with memory-efficient streaming
+- **`cli_usage_example.py`** - Complete CLI reference with 25+ examples
+
+Run the examples:
+
+```bash
+# Batch processing examples
+python examples/batch_processing_example.py
+
+# Streaming examples (requires ijson)
+pip install ijson
+python examples/streaming_example.py
+
+# CLI usage guide
+python examples/cli_usage_example.py
 ```
 
 ## 🤝 Contributing

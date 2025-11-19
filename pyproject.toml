@@ -43,9 +43,16 @@ dependencies = []
 # Recommended: tiktoken for exact token counting
 full = ["tiktoken>=0.7.0"]
 
+# Streaming support for large files
+stream = ["ijson>=3.2.0"]
+
+# All optional features
+all = ["tiktoken>=0.7.0", "ijson>=3.2.0"]
+
 # Development
 dev = [
     "tiktoken>=0.7.0",
+    "ijson>=3.2.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "black>=23.0.0",

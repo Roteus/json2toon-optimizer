@@ -406,14 +406,32 @@ class TOONEncoder:
         return '\n'.join(result)
 
 
-def process_json_file(input_file: str, output_dir: str = None) -> Dict[str, Any]:
+def process_json_file(
+    input_file: str,
+    output_dir: str = None,
+    delimiter: str = ',',
+    indent: int = 2,
+    format_choice: str = 'auto',
+    force_format: bool = False
+) -> Dict[str, Any]:
     """
     Processes a JSON file:
     1. Reads the JSON
     2. Calculates JSON tokens
     3. Converts to TOON
     4. Calculates TOON tokens
-    5. Saves the format with fewer tokens
+    5. Saves the format with fewer tokens (or forced format)
+    
+    Args:
+        input_file: Path to input JSON file
+        output_dir: Output directory (default: same as input)
+        delimiter: Delimiter character for arrays (',', '\\t', '|')
+        indent: Number of spaces for indentation
+        format_choice: Output format ('auto', 'toon', 'json', 'compact')
+        force_format: Force specified format even if not optimal
+    
+    Returns:
+        Dictionary with processing results and statistics
     """
     input_path = Path(input_file)
     
@@ -441,7 +459,7 @@ def process_json_file(input_file: str, output_dir: str = None) -> Dict[str, Any]
     
     # Convert to TOON
     print("\nConverting to TOON...")
-    encoder = TOONEncoder()
+    encoder = TOONEncoder(delimiter=delimiter, indent=indent)
     toon_content = encoder.encode(json_data)
     
     # Count TOON tokens
@@ -462,22 +480,47 @@ def process_json_file(input_file: str, output_dir: str = None) -> Dict[str, Any]
     print(f"   TOON tokens:             {toon_analysis['tokens']}")
     print(f"   TOON tokens (compact):   {toon_compact_analysis['tokens']}")
     
-    # Determine the most economical format
-    formats = [
-        ('JSON', json_analysis['tokens'], minified_json, '.json'),
-        ('TOON', toon_analysis['tokens'], toon_content, '.toon'),
-        ('TOON-COMPACT', toon_compact_analysis['tokens'], toon_compact, '.toon')
-    ]
-    
-    # Sort by tokens (smallest first)
-    formats.sort(key=lambda x: x[1])
-    chosen_format_name, chosen_tokens, chosen_content, _ = formats[0]
+    # Determine the format to use
+    if force_format and format_choice != 'auto':
+        # Force specific format
+        format_map = {
+            'json': ('JSON', json_analysis['tokens'], minified_json),
+            'toon': ('TOON', toon_analysis['tokens'], toon_content),
+            'compact': ('TOON-COMPACT', toon_compact_analysis['tokens'], toon_compact)
+        }
+        chosen_format_name, chosen_tokens, chosen_content = format_map.get(
+            format_choice,
+            ('TOON', toon_analysis['tokens'], toon_content)
+        )
+        print(f"\n🔒 Forced format: {chosen_format_name}")
+    else:
+        # Auto-select or prefer specified format
+        formats = [
+            ('JSON', json_analysis['tokens'], minified_json, '.json'),
+            ('TOON', toon_analysis['tokens'], toon_content, '.toon'),
+            ('TOON-COMPACT', toon_compact_analysis['tokens'], toon_compact, '.toon')
+        ]
+        
+        if format_choice == 'auto':
+            # Sort by tokens (smallest first)
+            formats.sort(key=lambda x: x[1])
+            chosen_format_name, chosen_tokens, chosen_content, _ = formats[0]
+            print(f"\n🏆 Best format: {chosen_format_name}")
+        else:
+            # Prefer specified format if reasonable
+            format_map = {
+                'json': 0,
+                'toon': 1,
+                'compact': 2
+            }
+            idx = format_map.get(format_choice, 1)
+            chosen_format_name, chosen_tokens, chosen_content, _ = formats[idx]
+            print(f"\n✓ Selected format: {chosen_format_name}")
     
     # Calculate savings vs JSON
     savings = json_analysis['tokens'] - chosen_tokens
     savings_pct = (savings / json_analysis['tokens'] * 100) if json_analysis['tokens'] > 0 else 0
     
-    print(f"\n🏆 Best format: {chosen_format_name}")
     print(f"   Savings vs JSON: {savings} tokens ({savings_pct:.1f}%)")
     
     # Save the most economical format
