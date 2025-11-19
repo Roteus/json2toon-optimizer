@@ -1,0 +1,4 @@
+{
+  "a": "This example demonstrates where JSON wins with simple flat structure and long unique text",
+  "b": "The key is having heterogeneous data with minimal repetition and no arrays"
+}

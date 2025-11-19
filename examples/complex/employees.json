@@ -1,0 +1,46 @@
+{
+  "company": "TechCorp",
+  "fiscal_year": 2025,
+  "employees": [
+    {
+      "id": 1001,
+      "name": "Alice Johnson",
+      "department": "Engineering",
+      "salary": 95000,
+      "active": true
+    },
+    {
+      "id": 1002,
+      "name": "Bob Smith",
+      "department": "Marketing",
+      "salary": 75000,
+      "active": true
+    },
+    {
+      "id": 1003,
+      "name": "Carol Williams",
+      "department": "Sales",
+      "salary": 80000,
+      "active": true
+    },
+    {
+      "id": 1004,
+      "name": "David Brown",
+      "department": "Engineering",
+      "salary": 92000,
+      "active": false
+    },
+    {
+      "id": 1005,
+      "name": "Emma Davis",
+      "department": "HR",
+      "salary": 70000,
+      "active": true
+    }
+  ],
+  "summary": {
+    "total_employees": 5,
+    "active_employees": 4,
+    "average_salary": 82400
+  }
+}

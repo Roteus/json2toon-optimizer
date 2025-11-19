@@ -1,0 +1,33 @@
+# Include extra files in distribution
+
+include README.md
+include GETTING_STARTED.md
+include requirements.txt
+include LICENSE
+
+# Documentation
+recursive-include docs *
+recursive-exclude docs __pycache__
+
+# Examples
+recursive-include examples *.json
+recursive-exclude examples __pycache__
+
+# Optimized results
+recursive-include optimized *.toon *.json
+
+# Analysis
+recursive-include analysis *.md
+
+# Demo
+recursive-include demo *.py *.sh
+recursive-exclude demo __pycache__
+
+# Tests (if they exist)
+recursive-include tests *.py
+recursive-exclude tests __pycache__
+
+# Exclude cache
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store

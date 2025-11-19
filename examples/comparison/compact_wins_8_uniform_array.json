@@ -1,0 +1,39 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Widget",
+      "price": 9.99,
+      "stock": 100,
+      "category": "tools"
+    },
+    {
+      "id": 2,
+      "name": "Gadget",
+      "price": 19.99,
+      "stock": 50,
+      "category": "tools"
+    },
+    {
+      "id": 3,
+      "name": "Device",
+      "price": 29.99,
+      "stock": 75,
+      "category": "electronics"
+    },
+    {
+      "id": 4,
+      "name": "Tool",
+      "price": 14.99,
+      "stock": 200,
+      "category": "tools"
+    },
+    {
+      "id": 5,
+      "name": "Item",
+      "price": 24.99,
+      "stock": 125,
+      "category": "misc"
+    }
+  ]
+}

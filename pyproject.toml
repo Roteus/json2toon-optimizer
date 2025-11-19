@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "json2toon-optimizer"
+version = "2.0.0"
+description = "JSON ↔ TOON optimizer and converter with token estimation via tiktoken (cl100k_base) or fallback"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+authors = [
+    {name = "json2toon-optimizer Contributors", email = "contrib@example.com"}
+]
+keywords = [
+    "toon",
+    "json",
+    "converter",
+    "tokens",
+    "tiktoken",
+    "cl100k_base",
+    "compression"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+]
+
+# Optional dependencies
+dependencies = []
+
+[project.optional-dependencies]
+# Recommended: tiktoken for exact token counting
+full = ["tiktoken>=0.7.0"]
+
+# Development
+dev = [
+    "tiktoken>=0.7.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/json2toon-optimizer"
+Documentation = "https://github.com/example/json2toon-optimizer/blob/main/README.md"
+Repository = "https://github.com/example/json2toon-optimizer.git"
+Issues = "https://github.com/example/json2toon-optimizer/issues"
+
+[project.scripts]
+json2toon = "json2toon.cli:main"
+
+[tool.setuptools]
+packages = ["json2toon"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 100
+target-version = ["py37"]
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=toon_converter --cov-report=html --cov-report=term"

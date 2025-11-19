@@ -1,0 +1,13 @@
+# json2toon-optimizer - Dependencies
+
+# Recommended (optional but highly recommended)
+# Provides exact token counting with cl100k_base encoding
+# (compatible with modern model tokenizers like GPT-4, Claude, etc)
+tiktoken>=0.7.0
+
+# Development and testing (optional)
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0

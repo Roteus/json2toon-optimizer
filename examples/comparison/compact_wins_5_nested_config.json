@@ -1,0 +1,19 @@
+{
+  "application_configuration_version": "2.5.1",
+  "primary_database_connection": {
+    "hostname_or_ip_address": "prod-primary-db-cluster-01.us-east-1.rds.amazonaws.com",
+    "full_connection_string_with_parameters": "Server=prod-primary-db-cluster-01.us-east-1.rds.amazonaws.com;Port=5432;Database=production_application_database;User Id=application_service_account;Password=SecureP@ssw0rd123!;SSL Mode=Require;Trust Server Certificate=false;",
+    "advanced_connection_options": {
+      "enable_ssl_encryption": true,
+      "connection_timeout_milliseconds": 30000,
+      "maximum_pool_size_connections": 100,
+      "minimum_pool_size_connections": 10,
+      "connection_retry_policy_strategy": "exponential-backoff-with-random-jitter",
+      "command_timeout_seconds": 60
+    }
+  },
+  "secondary_api_configuration": {
+    "rest_api_base_endpoint_url": "https://api-gateway.production-environment.enterprise-corporation.com/v2/services",
+    "authentication_bearer_token": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyMzQ1Njc4OTAifQ.eyJzdWIiOiJhcHBsaWNhdGlvbi1zZXJ2aWNlLWFjY291bnQiLCJuYW1lIjoiUHJvZHVjdGlvbiBBcHBsaWNhdGlvbiIsImlhdCI6MTUxNjIzOTAyMn0.signature_data_here"
+  }
+}

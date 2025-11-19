@@ -1,0 +1,36 @@
+{
+  "grades": [
+    {
+      "student": "Alice",
+      "tests": [
+        { "subject": "Math", "score": 95 },
+        { "subject": "English", "score": 88 },
+        { "subject": "Science", "score": 92 }
+      ]
+    },
+    {
+      "student": "Bob",
+      "tests": [
+        { "subject": "Math", "score": 78 },
+        { "subject": "English", "score": 85 },
+        { "subject": "Science", "score": 80 }
+      ]
+    },
+    {
+      "student": "Carol",
+      "tests": [
+        { "subject": "Math", "score": 90 },
+        { "subject": "English", "score": 93 },
+        { "subject": "Science", "score": 89 }
+      ]
+    },
+    {
+      "student": "David",
+      "tests": [
+        { "subject": "Math", "score": 82 },
+        { "subject": "English", "score": 79 },
+        { "subject": "Science", "score": 85 }
+      ]
+    }
+  ]
+}

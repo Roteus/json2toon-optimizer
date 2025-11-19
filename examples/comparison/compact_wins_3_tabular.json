@@ -1,0 +1,44 @@
+{
+  "inventory": [
+    {
+      "item": "A",
+      "qty": 10,
+      "batches": [
+        { "date": "2025-01-01", "amount": 5 },
+        { "date": "2025-01-02", "amount": 5 }
+      ]
+    },
+    {
+      "item": "B",
+      "qty": 20,
+      "batches": [
+        { "date": "2025-01-01", "amount": 10 },
+        { "date": "2025-01-02", "amount": 10 }
+      ]
+    },
+    {
+      "item": "C",
+      "qty": 15,
+      "batches": [
+        { "date": "2025-01-01", "amount": 8 },
+        { "date": "2025-01-02", "amount": 7 }
+      ]
+    },
+    {
+      "item": "D",
+      "qty": 25,
+      "batches": [
+        { "date": "2025-01-01", "amount": 12 },
+        { "date": "2025-01-02", "amount": 13 }
+      ]
+    },
+    {
+      "item": "E",
+      "qty": 30,
+      "batches": [
+        { "date": "2025-01-01", "amount": 15 },
+        { "date": "2025-01-02", "amount": 15 }
+      ]
+    }
+  ]
+}

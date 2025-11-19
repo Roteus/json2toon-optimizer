@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "type": "mixed",
+  "items": [42, "hello", true, { "a": 1 }, [1, 2], null, "world"],
+  "data": {
+    "x": 100,
+    "y": [1, 2, 3]
+  }
+}

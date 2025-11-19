@@ -1,0 +1,39 @@
+{
+  "user": {
+    "id": 123,
+    "name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "active": true
+  },
+  "settings": {
+    "theme": "dark",
+    "notifications": true,
+    "language": "pt-BR"
+  },
+  "items": [
+    {
+      "sku": "A1",
+      "name": "Widget",
+      "qty": 5,
+      "price": 9.99
+    },
+    {
+      "sku": "B2",
+      "name": "Gadget",
+      "qty": 3,
+      "price": 14.5
+    },
+    {
+      "sku": "C3",
+      "name": "Component",
+      "qty": 10,
+      "price": 4.25
+    }
+  ],
+  "tags": ["important", "processed", "verified"],
+  "metadata": {
+    "created": "2025-01-16",
+    "updated": "2025-01-16",
+    "version": 1
+  }
+}
