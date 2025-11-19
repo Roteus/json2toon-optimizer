@@ -470,14 +470,6 @@ python demo/demo.py
 
 ---
 
-## Known Issues
-
-❌ **Very large numbers** (>2^53): Converted to string
-❌ **NaN, Infinity**: Converted to `null`
-❌ **Functions**: Converted to `null`
-
----
-
 ## Future Improvements
 
 - [ ] TOON → JSON decoder (round-trip)
