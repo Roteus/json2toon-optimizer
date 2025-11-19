@@ -68,23 +68,50 @@ def process_batch(
     
     if parallel_workers > 1:
         # Parallel processing
-        with ProcessPoolExecutor(max_workers=parallel_workers) as executor:
-            futures = {
-                executor.submit(
-                    _process_single_file,
-                    path,
-                    output_dir,
-                    delimiter_char,
-                    indent,
-                    format_choice,
-                    force_format
-                ): path for path in input_paths
-            }
-            
-            for i, future in enumerate(as_completed(futures), 1):
-                path = futures[future]
+        try:
+            with ProcessPoolExecutor(max_workers=parallel_workers) as executor:
+                futures = {
+                    executor.submit(
+                        _process_single_file,
+                        path,
+                        output_dir,
+                        delimiter_char,
+                        indent,
+                        format_choice,
+                        force_format
+                    ): path for path in input_paths
+                }
+                
+                for i, future in enumerate(as_completed(futures), 1):
+                    path = futures[future]
+                    try:
+                        result = future.result()
+                        _update_results(results, result, path)
+                        
+                        if verbose and not quiet:
+                            print(f"   [{i}/{len(input_paths)}] ✅ {path.name}")
+                            
+                    except Exception as e:
+                        results['failed'] += 1
+                        results['errors'].append({'file': str(path), 'error': str(e)})
+                        
+                        if verbose and not quiet:
+                            print(f"   [{i}/{len(input_paths)}] ❌ {path.name}: {e}")
+        except Exception as pool_error:
+            # Fallback to sequential if parallel fails
+            if not quiet:
+                print(f"   ⚠️  Parallel processing failed, falling back to sequential: {pool_error}")
+            # Execute sequential processing as fallback
+            for i, path in enumerate(input_paths, 1):
                 try:
-                    result = future.result()
+                    result = _process_single_file(
+                        path,
+                        output_dir,
+                        delimiter_char,
+                        indent,
+                        format_choice,
+                        force_format
+                    )
                     _update_results(results, result, path)
                     
                     if verbose and not quiet:
@@ -96,7 +123,7 @@ def process_batch(
                     
                     if verbose and not quiet:
                         print(f"   [{i}/{len(input_paths)}] ❌ {path.name}: {e}")
-    else:
+    elif parallel_workers == 1:
         # Sequential processing
         for i, path in enumerate(input_paths, 1):
             try:
