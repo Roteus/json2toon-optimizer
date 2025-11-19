@@ -2,6 +2,12 @@
 
 Thank you for your interest in contributing to json2toon-optimizer! This document provides guidelines and instructions for contributing.
 
+## ⚠️ Important: Branch Protection
+
+**Direct commits to the `master` branch are not allowed.** All changes must go through Pull Requests and be approved by @Roteus before merging.
+
+See [.github/BRANCH_PROTECTION.md](.github/BRANCH_PROTECTION.md) for complete details on branch protection rules.
+
 ## 🚀 Getting Started
 
 1. Fork the repository
@@ -11,9 +17,17 @@ Thank you for your interest in contributing to json2toon-optimizer! This documen
 5. Test your changes
 6. Commit: `git commit -m "Add: your feature description"`
 7. Push: `git push origin feature/your-feature-name`
-8. Create a Pull Request
+8. Create a Pull Request to the `master` branch
+9. **Wait for approval from @Roteus** before the PR can be merged
 
 ## 📋 Pull Request Guidelines
+
+### ✅ Requirements
+
+All Pull Requests **must**:
+- Be reviewed and approved by **@Roteus** (code owner)
+- Target the `master` branch (or other feature branches)
+- Pass all required checks (if configured)
 
 ### Before Submitting
 
@@ -21,6 +35,7 @@ Thank you for your interest in contributing to json2toon-optimizer! This documen
 - [ ] All tests pass
 - [ ] Documentation is updated (if needed)
 - [ ] Commit messages are clear and descriptive
+- [ ] PR is ready for review by @Roteus
 
 ### PR Description Should Include
 
@@ -28,6 +43,13 @@ Thank you for your interest in contributing to json2toon-optimizer! This documen
 - **Why**: Reason for the changes
 - **How**: Explanation of implementation (if complex)
 - **Testing**: How you tested the changes
+
+### Review Process
+
+1. Submit your Pull Request
+2. @Roteus will review your changes
+3. Address any feedback or requested changes
+4. Once approved, your PR will be merged
 
 ## 🧪 Testing
 
