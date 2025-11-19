@@ -488,11 +488,16 @@ json2toon --help
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+**⚠️ Important:** All changes to the `master` branch must go through Pull Requests and be approved by the repository owner.
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+6. Wait for review and approval
+
+For detailed guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md). For information about branch protection rules, see [.github/BRANCH_PROTECTION.md](.github/BRANCH_PROTECTION.md) or [.github/PROTECAO_DE_BRANCH.md](.github/PROTECAO_DE_BRANCH.md) (Portuguese).
 
 ## 📄 License
 

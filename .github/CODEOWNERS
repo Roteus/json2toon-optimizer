@@ -1,0 +1,8 @@
+# CODEOWNERS file
+# This file defines code owners for the repository
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+
+# Default owners for everything in the repo
+# All changes require approval from @Roteus
+* @Roteus
